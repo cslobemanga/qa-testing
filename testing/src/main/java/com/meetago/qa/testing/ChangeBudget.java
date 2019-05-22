@@ -1,15 +1,12 @@
 package com.meetago.qa.testing;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -39,7 +36,7 @@ public class ChangeBudget
 //		updateBudget(driver);
 	}
 	
-	protected void waitForPageLoaded(WebDriver driver)
+	public void waitForPageLoaded(WebDriver driver)
 	{
 		ExpectedCondition<Boolean> expectations = new ExpectedCondition<Boolean>() {
 			
@@ -48,7 +45,7 @@ public class ChangeBudget
 			}
 		};
 		
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(expectations);
 		
 		driver.get(sessionLink);
@@ -57,7 +54,7 @@ public class ChangeBudget
 	}
 	
 	
-	protected void updateBudget(WebDriver driver)
+	public void updateBudget(WebDriver driver)
 	{
 		try {
 			Thread.sleep(20000);
@@ -73,9 +70,9 @@ public class ChangeBudget
 		}
 	}
 	
-	protected int roundAmount(int pAmount)
+	public int roundAmount(int pAmount)
 	{
-		return (pAmount + (10 - pAmount%10));
+		return pAmount%10 == 0 ? pAmount : (pAmount + (10 - pAmount%10));
 	}
 	
 	
