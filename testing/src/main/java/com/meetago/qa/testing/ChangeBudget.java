@@ -1,11 +1,12 @@
 package com.meetago.qa.testing;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,22 +19,22 @@ public class ChangeBudget
 	
 	protected WebDriver 			driver;
 	protected JavascriptExecutor 	jse;
-	protected String 				driverPrefix = "C:\\selenium\\";
+	protected String 				driverPrefix = "C:\\Users\\charl\\Software\\java\\selenium\\";
 	protected String 				sessionLink = "https://m7-frontend.test/records/fake/mee4/123456/mee7/987654?_access_token=458741231";
 	protected String 				startPage = "https://m7-frontend.test/records/details/746065";
 	
 	public void invokeBrowser()
 	{
-		System.setProperty("webdriver.gecko.driver", driverPrefix + "geckodriver.exe");
-		driver = new FirefoxDriver();
-		driver.manage().deleteAllCookies();
-		driver.manage().window().maximize();
-		waitForPageLoaded(driver);
-//		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-//		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-//		driver.get(sessionLink);
-//		driver.get(startPage);
-//		updateBudget(driver);
+		try {
+			System.setProperty("webdriver.chrome.driver", driverPrefix + "chromedriver.exe");
+			driver = new ChromeDriver();
+			driver.manage().deleteAllCookies();
+			driver.manage().window().maximize();
+			waitForPageLoaded(driver);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void waitForPageLoaded(WebDriver driver)
@@ -47,7 +48,6 @@ public class ChangeBudget
 		
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(expectations);
-		
 		driver.get(sessionLink);
 		driver.get(startPage);
 		updateBudget(driver);
